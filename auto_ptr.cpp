@@ -1,6 +1,6 @@
 #include<memory>  //智能指针头文件
 #include<iostream>
-
+//C++11之后的代码 auto_ptr已经被废弃 不要再用啦！！！
 //创建智能指针测试
 void create(){  
     //智能指针创建在堆上
