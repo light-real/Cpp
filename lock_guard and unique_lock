@@ -1,0 +1,35 @@
+#include<iostream>
+#include<thread>
+#include<mutex>
+
+int shared_data = 0;
+
+std::mutex mtx;
+std::timed_mutex tmx;
+
+void func1() {
+	for (int i = 0; i < 10; i++) {
+		std::lock_guard<std::mutex> lg(mtx);  //一个模板类 构造函数加锁 析构函数解锁
+		shared_data++;
+	}
+}
+
+void func2() {
+	for (int i = 0; i < 2; i++) {
+		std::unique_lock<std::timed_mutex> ul(tmx,std::defer_lock);   //创建一个unique_lock 类型是时间锁  加了defer_lock 构造但是不加锁
+		if (ul.try_lock_for(std::chrono::seconds(2))) {  //尝试加锁 如果没有加上阻塞一定的时间 然后返回一个bool值
+			std::this_thread::sleep_for(std::chrono::seconds(1)); 
+			shared_data++;
+		}
+	}
+}
+
+int main() {
+	std::thread t1(func2);
+	std::thread t2(func2);
+
+	t1.join();
+	t2.join();
+	std::cout << shared_data << std::endl;
+	return 0;
+}
