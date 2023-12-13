@@ -1,0 +1,44 @@
+#include<iostream>
+#include<string>
+#include<mutex>
+#include<thread>
+
+class Log;
+
+static Log* log = nullptr;
+static std::once_flag once;  //表示只调用一次
+
+class Log {
+public:
+	Log() {}; //默认构造函数
+	//单例模式下需要禁用拷贝构造函数和赋值运算符
+	Log(const Log& log) = delete;
+	Log& operator=(const Log& log) = delete;
+	
+	static Log& GetInstance() {
+		if (!log) log = new Log();
+		std::call_once(once, init);
+
+		return *log;
+	}
+
+	static void init() {
+		if (!log) log = new Log();
+	}
+
+	void PringLog(std::string msg) {
+		std::cout << __TIME__ << ' ' << msg << std::endl;
+	}
+};
+
+void Print_error() {
+	Log::GetInstance().PringLog("error");
+}
+int main() {
+	std::thread t1(Print_error);
+	std::thread t2(Print_error);
+	t1.join();
+	t2.join();
+
+	return 0;
+}
