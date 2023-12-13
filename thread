@@ -1,0 +1,71 @@
+#include<iostream>
+#include<thread>
+#include<memory>
+using namespace std;
+
+//thread thread2;
+void print(string msg) {
+	cout << msg << endl;
+
+	for (int i = 0; i < 1000; i++) {
+		cout << i << endl;
+	}
+
+	cout << endl;
+}
+
+void foo(int* a) {
+	cout << *a << endl;
+}
+
+
+class A {
+public:
+	void foo() {
+		cout << "hello" << endl;
+	}
+};
+
+class B {
+private:
+	friend void test4();
+	void foo() {
+		cout << "visit private function" << endl;
+	}
+};
+void test1() {
+	thread thread1(print, "hello thread");
+	bool isjoin = thread1.joinable();
+	if (isjoin) {
+		thread1.join();
+	}
+}
+
+void test2() {
+	int* ptr = new int(1);
+	thread thread2(foo, ptr);
+	delete ptr;
+	thread2.join();
+}
+
+void test3() {
+	//访问类成员函数
+	shared_ptr<A> a = make_shared<A>();
+	thread t(&A::foo, a);
+	t.join();
+}
+
+void test4() {
+	//访问类私有成员函数
+	shared_ptr<B> b = make_shared<B>();
+	thread t(&B::foo, b);
+	t.join();
+}
+
+int main() {
+	
+	test4();
+
+	cout << "over" << endl; 
+	return 0;
+}
