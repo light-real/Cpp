@@ -1,0 +1,27 @@
+#include<iostream>
+#include<thread>
+#include<mutex>
+using namespace std;
+
+mutex mtx;
+
+int a = 0;
+
+void func() {
+	for (int i = 0; i < 10000; i++) {
+		mtx.lock();  //加锁用以保护临界区代码
+		a += 1;
+		mtx.unlock(); //解锁
+	}
+}
+
+int main() {
+	thread t1(func);
+	thread t2(func);
+
+	t1.join();
+	t2.join();
+
+	cout << a << endl;
+	return 0;
+}
