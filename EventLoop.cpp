@@ -45,7 +45,7 @@ EventLoop::~EventLoop()
 
 void EventLoop::run() //运行事件循环
 {
-    threadid_ = syscall(SYS_gettid); //获取时间循环所在线程的id
+    threadid_ = syscall(SYS_gettid); //获取事件循环所在线程的id
     while(stop_ == false)  //事件循环
     {
         std::vector<Channel *> channels = ep_->loop(10*1000); //等待监视的fd有事件发生
