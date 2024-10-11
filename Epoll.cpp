@@ -94,7 +94,7 @@ std::vector<Channel *> Epoll::loop(int timeout) // 运行epoll_wait() 等待事件的发
         }
     __EPOLL_PACKED;
     */
-   //epoll_data是一个联合体union 其中epoll_data中的ptr成员是void*类型，可以转换为其他类型
+    // epoll_data是一个联合体union 其中epoll_data中的ptr成员是void*类型，可以转换为其他类型
     for (int i = 0; i < infds; i++)
     {
         Channel *ch = (Channel *)events_[i].data.ptr; // 取出已发生事件的channel
