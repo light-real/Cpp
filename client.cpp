@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 {
     if (argc != 3)
     {
-        printf("exampple:./client 192.168.0.65 5085\n");
+        printf("exampple:./client 192.168.184.128 5085\n");
         return -1;
     }
     int sockfd;

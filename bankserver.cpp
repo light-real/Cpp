@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     if (argc != 3)
     {
         printf("usage: ./bankserver ip port\n");
-        printf("example: ./bankserver 192.168.0.65 5085\n\n");
+        printf("example: ./bankserver 192.168.184.128 5085\n\n");
         return -1;
     }
 
