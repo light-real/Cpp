@@ -28,11 +28,9 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    signal(SIGTERM, Stop); // 信号15，系统kill或killall命令默认发送的信号。
-    signal(SIGINT, Stop);  // 信号2，按Ctrl+C发送的信号。
-
-    bankserver = new EchoServer(argv[1], atoi(argv[2]), 3, 2);
+    signal(SIGTERM, Stop);                                     // 信号15，系统kill或killall命令默认发送的信号。
+    signal(SIGINT, Stop);                                      // 信号2，按Ctrl+C发送的信号。
+    bankserver = new EchoServer(argv[1], atoi(argv[2]), 3, 2); // 后面两个参数 子线程 工作线程
     bankserver->Start();
-
     return 0;
 }

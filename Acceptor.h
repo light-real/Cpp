@@ -17,7 +17,7 @@ private:
 public:
     Acceptor(EventLoop *loop, const std::string &ip, const uint16_t port);
     ~Acceptor();
-    void newconnection(); // 处理新客户端了解请求
+    void newconnection(); // 处理新客户端连接请求
 
     // 设置处理新客户端连接请求回调函数 将在创建Acceptor对象的时候（TcpServer类的构造函数中） 设置
     void setnewconnenctioncb(std::function<void(std::unique_ptr<Socket>)> fn);

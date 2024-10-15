@@ -15,7 +15,7 @@ class Channel;
 class Epoll
 {
 private:
-    static const int MaxEvents = 100; // epoll_wait()返回时间数组的大小
+    static const int MaxEvents = 100; // epoll_wait()返回事件数组的大小
     int epollfd_ = -1;                // epoll句柄 在构造函数中创建
     epoll_event events_[MaxEvents];   // 存放epoll_wait()返回事件的数组 在构造函数中分配内存
 
