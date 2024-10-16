@@ -93,6 +93,7 @@ void TcpServer::errorconnection(spConnection conn) // 客户端的连接错误 在Connect
 
 void TcpServer::onmessage(spConnection conn, std::string &message) // 处理客户端的请求报文 在Connection类中回调此函数
 {
+    // todo
     if (onmessagecb_)
     {
         onmessagecb_(conn, message); // 回调EchoServer::HandleMessage()
